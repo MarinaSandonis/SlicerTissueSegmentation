@@ -19,5 +19,5 @@ TissueSegmentation is a 3D Slicer extension designed to provide access to tools 
 4.	Create the output volumes and segmentations
 ![alt text](https://github.com/MarinaSandonis/SlicerTissueSegmentation/blob/main/images/Outputs.png?raw=true)
 
-#Result
+<b>Result</b> <br>
 ![alt text](https://github.com/MarinaSandonis/SlicerTissueSegmentation/blob/main/images/SlicerCapture.gif?raw=true)
