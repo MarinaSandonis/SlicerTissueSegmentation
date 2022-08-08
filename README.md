@@ -13,7 +13,7 @@ TissueSegmentation is a 3D Slicer extension designed to provide access to tools 
       - Add a new segment 
       - Making use of the 'Draw 'tool, a segmentation of the area contained within the outer edge of the visceral fat (VAT) should be created.
       In case a 3D segmentation is wanted to be done, the first and last slice of the range of the image that is going to be analyzed should be marked manually. 
-      The other slices are marked automatically using the ‘Fill between slices’ tool. It is recommended to mark some intermediate slices manually if the anatomical
+      The other slices are segmented automatically using the ‘Fill between slices’ tool. It is recommended to mark some intermediate slices manually if the anatomical
       characteristics of the image change.  
       ![alt text](https://github.com/MarinaSandonis/SlicerTissueSegmentation/blob/main/images/SegmentEditor.png?raw=true)
 4.	Create the output volumes and segmentations
