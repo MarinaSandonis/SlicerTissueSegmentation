@@ -4,7 +4,7 @@ project(TissueSegmentation)
 
 #-----------------------------------------------------------------------------
 # Extension meta-information
-set(EXTENSION_HOMEPAGE "https://www.slicer.org/wiki/Documentation/Nightly/Extensions/TissueSegmentation")
+set(EXTENSION_HOMEPAGE "https://github.com/MarinaSandonis/SlicerTissueSegmentation#slicertissuesegmentation")
 set(EXTENSION_CATEGORY "Segmentation")
 set(EXTENSION_CONTRIBUTORS "Rafael Cabeza Laguna (UPNA), Fernando Idoate Saralegui (Mutua Navarra), Marina Sandonís Fernández (UPNA)")
 set(EXTENSION_DESCRIPTION "It gets the 2D/3D segmentation of the abdomen and the thigh from MR images")
