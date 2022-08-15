@@ -6,7 +6,7 @@ project(TissueSegmentation)
 # Extension meta-information
 set(EXTENSION_HOMEPAGE "https://github.com/MarinaSandonis/SlicerTissueSegmentation#slicertissuesegmentation")
 set(EXTENSION_CATEGORY "Segmentation")
-set(EXTENSION_CONTRIBUTORS "Rafael Cabeza Laguna (UPNA), Fernando Idoate Saralegui (Mutua Navarra), Marina Sandonís Fernández (UPNA)")
+set(EXTENSION_CONTRIBUTORS "Marina Sandonís Fernández (UPNA)", Fernando Idoate Saralegui (Mutua Navarra), Rafael Cabeza Laguna (UPNA))
 set(EXTENSION_DESCRIPTION "It gets the 2D/3D segmentation of the abdomen and the thigh from MR images")
 set(EXTENSION_ICONURL "https://github.com/MarinaSandonis/SlicerTissueSegmentation/blob/main/TissueSegmentation.jpg")
 set(EXTENSION_SCREENSHOTURLS "https://github.com/MarinaSandonis/SlicerTissueSegmentation/blob/main/images/Outputs.png https://github.com/MarinaSandonis/SlicerTissueSegmentation/blob/main/images/SegmentEditor.png https://github.com/MarinaSandonis/SlicerTissueSegmentation/blob/main/images/SlicerCapture.gif https://github.com/MarinaSandonis/SlicerTissueSegmentation/blob/main/images/inputs.png https://github.com/MarinaSandonis/SlicerTissueSegmentation/blob/main/images/module.png")
