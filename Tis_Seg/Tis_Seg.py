@@ -2,40 +2,6 @@ import vtk, qt, ctk, slicer
 from slicer.ScriptedLoadableModule import *
 from slicer.util import VTKObservationMixin
 
-
-try: import sitkUtils
-except: 
-  slicer.util.pip_install('sitkUtils')
-  import sitkUtils
-try: 
-  import skimage as sk
-except: 
-  slicer.util.pip_install('scikit-image')
-  import skimage as sk
-try: import scipy as sp
-except: 
-  slicer.util.pip_install('scipy')
-  import scipy as sp
-try: import sklearn as skl
-except: 
-  slicer.util.pip_install('sklearn')
-  import sklearn as skl
-try: import SimpleITK as sitk
-except: 
-  slicer.util.pip_install('SimpleITK')
-  import SimpleITK as sitk
-try: import numpy as np
-except: 
-  slicer.util.pip_install('numpy')
-  import numpy as np
-try: 
-  from tisseglibrary import tisseglibrary
-except: 
-  slicer.util.pip_install('TisSegLibrary')
-  from tisseglibrary import tisseglibrary
-
-
-
 #
 # Tis_Seg
 #
@@ -47,7 +13,7 @@ class Tis_Seg(ScriptedLoadableModule):
 
   def __init__(self, parent):
     ScriptedLoadableModule.__init__(self, parent)
-    self.parent.title = "Tis_Seg"  # TODO: make this more human readable by adding spaces
+    self.parent.title = "Tissue Segmentation (Tis_Seg)"  # TODO: make this more human readable by adding spaces
     self.parent.categories = ["Segmentation"]  # TODO: set categories (folders where the module shows up in the module selector)
     self.parent.dependencies = []  # TODO: add here list of module names that this module requires
     self.parent.contributors = ["Rafael Cabeza Laguna (UPNA), Fernando Idoate Saralegui (Mutua Navarra), Marina Sandonís Fernández (UPNA)"]  # TODO: replace with "Firstname Lastname (Organization)"
@@ -174,6 +140,7 @@ class Tis_SegWidget(ScriptedLoadableModuleWidget, VTKObservationMixin):
     Called each time the user opens this module.
     """
     # Make sure parameter node exists and observed
+    self.logic.installRequiredPythonPackages()
     self.initializeParameterNode()
 
   def exit(self):
@@ -287,6 +254,7 @@ class Tis_SegWidget(ScriptedLoadableModuleWidget, VTKObservationMixin):
     This method is called when the user select the input image.
     The changes are saved into the parameter node (so that they are restored when the scene is saved and loaded).
     """
+    import sitkUtils
     fat_img=sitkUtils.PullVolumeFromSlicer(input)
     aux = fat_img.GetSize()
     max = float (aux[2]-1)
@@ -327,7 +295,8 @@ class Tis_SegWidget(ScriptedLoadableModuleWidget, VTKObservationMixin):
     This method is called when the user makes any change in the GUI.
     The changes are saved into the parameter node (so that they are restored when the scene is saved and loaded).
     """
-  
+    import sitkUtils
+
     if self._parameterNode is None or self._updatingGUIFromParameterNode:
       return
 
@@ -454,6 +423,20 @@ class Tis_SegLogic(ScriptedLoadableModuleLogic):
     """
     ScriptedLoadableModuleLogic.__init__(self)
 
+  def installRequiredPythonPackages(self):
+    try: 
+      import skimage as sk
+    except: 
+      slicer.util.pip_install('scikit-image')
+    try:
+      import sklearn as skl
+    except: 
+      slicer.util.pip_install('scikit-learn')
+    try: 
+      from tisseglibrary import tisseglibrary
+    except: 
+      slicer.util.pip_install('TisSegLibrary')
+
   def setDefaultParameters(self, parameterNode):
     """
     Initialize parameter node with default settings.
@@ -479,6 +462,9 @@ class Tis_SegLogic(ScriptedLoadableModuleLogic):
       '''
       Compute the segmentation of the abdomen
       '''
+      import sitkUtils
+      from tisseglibrary import tisseglibrary
+
       if inputVolumeF_Abdo is None or inputVolumeW_Abdo is None or inputVolumeROI is None:
         slicer.util.errorDisplay('Select the input images') 
 
@@ -506,21 +492,21 @@ class Tis_SegLogic(ScriptedLoadableModuleLogic):
           slicer.util.setSliceViewerLayers(background=OutputVolume_Abdo)
 
           tisseglibrary.ColorSegmentation_Abdo(OutputVolume_Abdo, Segmentation_Abdo)
-        
-        
-      
-      return 
+
 
   def getsegmentation(self, inputVolumeW, inputVolumeF,  outputVolume_l, Segmentation_l, outputVolume_r, Segmentation_r, RangeSlice, numberOfPartitions, incomplete, MasterVolume ):
     '''
     Compute the segmentation of the thights
 
     '''
+    import sitkUtils
+    from tisseglibrary import tisseglibrary
+
     if inputVolumeF is None or inputVolumeW is None:
   
       slicer.util.errorDisplay('Select the input images') 
 
-    else : 
+    else:
         #Leemos las imágenes
         fat_img=sitkUtils.PullVolumeFromSlicer(inputVolumeF)
         water_img=sitkUtils.PullVolumeFromSlicer(inputVolumeW)
@@ -649,7 +635,8 @@ class Tis_SegLogic(ScriptedLoadableModuleLogic):
     """
     Run the actual algorithm
     """
-  
+    import numpy as np
+
     RangeSlice_Abdo = np.array([MinSliceRange_Abdo, MaxSliceRange_Abdo+1]).astype(np.int32)
 
     OutputVolume_Abdo.CreateDefaultDisplayNodes()
